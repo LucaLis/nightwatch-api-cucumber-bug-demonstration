@@ -1,0 +1,139 @@
+
+> nightwatch-api-cucumber-bug-demonstration@1.0.0 test C:\dev\nightwatch-api-cucumber-bug-demonstration
+> mkdirp report && cucumber-js --require-module @babel/register --require cucumber.conf.js --require step-definitions --format node_modules/cucumber-pretty --format json:report/cucumber_report.json
+
+ Starting ChromeDriver on port 4444...
+ ChromeDriver up and running on port 4444 with pid: 17816 (129ms).
+   Request POST  /session  
+   { desiredCapabilities:
+      { browserName: 'chrome',
+        platform: 'ANY',
+        'goog:chromeOptions': { w3c: 'true' } } }
+   Response 200 POST /session (2557ms)
+   { sessionId: '9d9f82669879fc00fe0bffb30b96e421',
+     status: 0,
+     value:
+      { acceptInsecureCerts: false,
+        acceptSslCerts: false,
+        applicationCacheEnabled: false,
+        browserConnectionEnabled: false,
+        browserName: 'chrome',
+        chrome:
+         { chromedriverVersion:
+            '81.0.4044.69 (6813546031a4bc83f717a2ef7cd4ac6ec1199132-refs/branch-heads/4044@{#776})',
+           userDataDir:
+            'C:\\Users\\llis\\AppData\\Local\\Temp\\scoped_dir17816_840964550' },
+        cssSelectorsEnabled: true,
+        databaseEnabled: false,
+        'goog:chromeOptions': { debuggerAddress: 'localhost:50313' },
+        handlesAlerts: true,
+        hasTouchScreen: false,
+        javascriptEnabled: true,
+        locationContextEnabled: true,
+        mobileEmulationEnabled: false,
+        nativeEvents: true,
+        networkConnectionEnabled: false,
+        pageLoadStrategy: 'normal',
+        platform: 'Windows',
+        proxy: {},
+        rotatable: false,
+        setWindowRect: true,
+        strictFileInteractability: false,
+        takesHeapSnapshot: true,
+        takesScreenshot: true,
+        timeouts: { implicit: 0, pageLoad: 300000, script: 30000 },
+        unexpectedAlertBehaviour: 'ignore',
+        version: '81.0.4044.138',
+        webStorageEnabled: true,
+        'webauthn:virtualAuthenticators': true } }
+  Using: chrome (81.0.4044.138) on Windows platform.
+
+ Received session with ID: 9d9f82669879fc00fe0bffb30b96e421
+
+@command
+Feature: Google Search
+
+  @command
+  Scenario: First scenario
+    Given I simply open Google
+ 
+ → Running command: url ('http://google.com')
+   Request POST  /session/9d9f82669879fc00fe0bffb30b96e421/url  
+   { url: 'http://google.com' }
+   Response 200 POST /session/9d9f82669879fc00fe0bffb30b96e421/url (950ms)
+   { sessionId: '9d9f82669879fc00fe0bffb30b96e421',
+     status: 0,
+     value: null }
+  → Completed command: url ('http://google.com') (951ms)
+    When i call custom command and wait for something important
+ 
+ → Running command: customCommand ()
+ 
+ → Running command: pause (1000, [Function])
+callback from custom command
+  → Completed command: pause (1000, [Function]) (1000ms)
+  → Completed command: customCommand () (1005ms)
+ 
+ → Running command: waitForElementPresent ('#thisWontBePresent')
+   Request POST  /session/9d9f82669879fc00fe0bffb30b96e421/elements  
+   { using: 'css selector', value: '#thisWontBePresent' }
+   Response 200 POST /session/9d9f82669879fc00fe0bffb30b96e421/elements (10ms)
+   { sessionId: '9d9f82669879fc00fe0bffb30b96e421',
+     status: 0,
+     value: [] }
+   Request POST  /session/9d9f82669879fc00fe0bffb30b96e421/elements  
+   { using: 'css selector', value: '#thisWontBePresent' }
+   Response 200 POST /session/9d9f82669879fc00fe0bffb30b96e421/elements (7ms)
+   { sessionId: '9d9f82669879fc00fe0bffb30b96e421',
+     status: 0,
+     value: [] }
+   Request POST  /session/9d9f82669879fc00fe0bffb30b96e421/elements  
+   { using: 'css selector', value: '#thisWontBePresent' }
+   Response 200 POST /session/9d9f82669879fc00fe0bffb30b96e421/elements (6ms)
+   { sessionId: '9d9f82669879fc00fe0bffb30b96e421',
+     status: 0,
+     value: [] }
+Timed out while waiting for element <#thisWontBePresent> to be present for 500 milliseconds. - expected "found" but got: "not found" (626ms)
+undefined  → Completed command: waitForElementPresent ('#thisWontBePresent') (628ms)
+    × failed
+      Timed out while waiting for element <#thisWontBePresent> to be present for 500 milliseconds. - expected "found" but got: "not found" (626ms)
+      Timed out while waiting for element <#thisWontBePresent> to be present for 500 milliseconds. - expected "found" but got: "not found" (626ms)
+          at World.<anonymous> (C:\dev\nightwatch-api-cucumber-bug-demonstration\step-definitions\/steps.js:10:17)
+
+  @command
+  Scenario: Next Scenario
+    Given dummy step
+ 
+ → Running command: pause (100)
+  → Completed command: pause (100) (100ms)
+    When dummy step
+ 
+ → Running command: pause (100)
+  → Completed command: pause (100) (99ms)
+    Then dummy step
+ 
+ → Running command: pause (100)
+  → Completed command: pause (100) (101ms)
+   Request DELETE  /session/9d9f82669879fc00fe0bffb30b96e421  
+   Response 200 DELETE /session/9d9f82669879fc00fe0bffb30b96e421 (29ms)
+   { sessionId: '9d9f82669879fc00fe0bffb30b96e421',
+     status: 0,
+     value: null }
+ Wrote log file to: C:\dev\nightwatch-api-cucumber-bug-demonstration\chromedriver.log.
+
+Failures:
+
+1) Scenario: First scenario # features\customCommandFreeze.feature:4
+   √ Given I simply open Google # step-definitions\steps.js:4
+   × When i call custom command and wait for something important # step-definitions\steps.js:8
+       Timed out while waiting for element <#thisWontBePresent> to be present for 500 milliseconds. - expected "found" but got: "not found" (626ms)
+       Timed out while waiting for element <#thisWontBePresent> to be present for 500 milliseconds. - expected "found" but got: "not found" (626ms)
+           at World.<anonymous> (C:\dev\nightwatch-api-cucumber-bug-demonstration\step-definitions\/steps.js:10:17)
+   √ After # cucumber.conf.js:33
+
+2 scenarios (1 failed, 1 passed)
+5 steps (1 failed, 4 passed)
+0m02.894s
+ ChromeDriver process closed.
+
+🚀 Cucumber HTML report report/cucumber_report.html generated successfully 👍

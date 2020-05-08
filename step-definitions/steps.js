@@ -6,7 +6,7 @@ Given('I simply open Google', function() {
 });
 
 Given('i call custom command and wait for something important', function(){
-  client.customCommand()
+  client.customCommand() // comment out this line and test won't freeze 
   return client.waitForElementPresent('#thisWontBePresent')
 });
 

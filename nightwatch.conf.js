@@ -3,7 +3,8 @@ const chromedriver = require('chromedriver');
 module.exports = {
   silent: false,
   custom_commands_path: "./commands",
-  
+  disable_colors: true,
+
   globals: {
     abortOnFailure: true,
     abortOnAssertionFailure: true,
@@ -15,8 +16,8 @@ module.exports = {
   test_settings: {
     default: {
       screenshots: {
-        enabled: true,
-        path: 'screenshots'
+        enabled: true, // turn off and test won't freeze 
+        path: 'screenshots' 
       },
       webdriver: {
         start_process: true,
